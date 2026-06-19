@@ -537,7 +537,7 @@ function render(){
       h+=`<div class="sec-head"><span class="sec-name" style="color:${s.c}">${sec.t}</span><span class="sec-sub">${sec.s}</span></div>`;
       for(const it of sec.its){
         h+=`<div class="row"><div class="row-label"><div class="row-name">${it.l}</div><div class="row-desc">${it.ds}</div></div>`;
-        h+=`<div class="row-wrap"><input type="number" class="row-input" id="${it.id}" min="0" max="${it.m}" placeholder="0" oninput="calc()">`;
+        h+=`<div class="row-wrap"><input type="number" class="row-input" id="${it.id}" min="0" max="${it.m}" placeholder="0" oninput="setUserInteracted();calc()">`;
         h+=`<span class="row-div">/</span><span class="row-max">${it.m}</span></div></div>`;
         h+=`<div class="slider-track" data-for="${it.id}" data-max="${it.m}"><div class="slider-rail"><div class="slider-fill"></div><div class="slider-thumb"></div></div></div>`;
       }
@@ -965,6 +965,9 @@ function filterDistrict(val){
   saveData();
 }
 
+// 是否在用户主动输入（非初始化、非拖滑块）后才滚动到对应档位
+let _userInteracted=false;
+function setUserInteracted(){_userInteracted=true;}
 function updateGuidance(total){
   // Highlight matching tier
   let matchIdx=-1;
@@ -977,10 +980,11 @@ function updateGuidance(total){
       el.classList.remove('active');
     }
   }
-  // Scroll active tier into view
-  if(matchIdx>=0){
+  // 仅当用户主动输入分数（非初始化、非拖滑块）时，才滚动到对应档位
+  if(matchIdx>=0 && _userInteracted){
     const el=document.getElementById('tier-'+matchIdx);
     setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+    _userInteracted=false; // 滚动一次后复位，避免拖滑块时再次触发
   }
 }
 
@@ -999,22 +1003,29 @@ function sliderUpdate(track,clientX){
   track.querySelector('.slider-thumb').style.left=(val/mx*100)+'%';
   track.querySelector('.slider-fill').style.width=(val/mx*100)+'%';
 }
+let _sliderDragging=false;
 document.addEventListener('pointerdown',function(e){
   const track=e.target.closest('.slider-track');
   if(!track)return;
   e.preventDefault();
-  track.setPointerCapture(e.pointerId);
+  _sliderDragging=true;
   sliderUpdate(track,e.clientX);
   function onMove(ev){ev.preventDefault();sliderUpdate(track,ev.clientX);}
   function onUp(ev){
-    track.removeEventListener('pointermove',onMove);
-    track.removeEventListener('pointerup',onUp);
-    track.removeEventListener('pointercancel',onUp);
+    _sliderDragging=false;
+    document.removeEventListener('pointermove',onMove);
+    document.removeEventListener('pointerup',onUp);
+    document.removeEventListener('pointercancel',onUp);
   }
-  track.addEventListener('pointermove',onMove);
-  track.addEventListener('pointerup',onUp);
-  track.addEventListener('pointercancel',onUp);
+  // 监听挂在 document 上，避免 setPointerCapture 在 iOS Safari 上的不一致行为
+  document.addEventListener('pointermove',onMove,{passive:false});
+  document.addEventListener('pointerup',onUp);
+  document.addEventListener('pointercancel',onUp);
 });
+// 额外兜底：拖动滑块期间阻止页面触摸滚动（iOS 尤其需要）
+document.addEventListener('touchmove',function(e){
+  if(_sliderDragging){e.preventDefault();}
+},{passive:false});
 // Sync input→slider visual
 document.addEventListener('input',function(e){
   if(e.target.classList.contains('row-input')){
