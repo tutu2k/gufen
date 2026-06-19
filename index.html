@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上海中考估分 · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f8f7f4;
+  --card:#ffffff;
+  --text:#2d2a26;
+  --text2:#6b6560;
+  --text3:#a8a29e;
+  --border:rgba(0,0,0,0.06);
+  --border2:rgba(0,0,0,0.03);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.04),0 1px 3px rgba(0,0,0,0.02);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.06),0 2px 8px rgba(0,0,0,0.03);
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --spring:cubic-bezier(0.34,1.56,0.64,1);
+  --r:16px;--rs:10px;
+  /* warm accent palette */
+  --sky:#3b82f6;--mint:#10b981;--coral:#f97316;
+  --gold:#eab308;--pink:#ec4899;--violet:#8b5cf6;
+  --teal:#14b8a6;--rose:#f43f5e;--indigo:#6366f1;
+}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{
+  font-family:'Noto Sans SC','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--text);line-height:1.65;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* Warm ambient glow */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 0%,rgba(251,191,36,0.08),transparent),
+    radial-gradient(ellipse 500px 400px at 80% 100%,rgba(59,130,246,0.06),transparent),
+    radial-gradient(ellipse 400px 300px at 50% 50%,rgba(16,185,129,0.04),transparent);
+}
+.container{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:20px 20px 80px;}
+
+/* ===== HEADER ===== */
+.header{text-align:center;padding:48px 0 20px;}
+.header-year{
+  display:inline-block;
+  font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text3);
+  background:var(--card);
+  padding:5px 18px;border-radius:20px;
+  border:1px solid var(--border);
+  margin-bottom:16px;
+}
+.header h1{
+  font-size:clamp(32px,6vw,44px);font-weight:900;
+  letter-spacing:-0.03em;line-height:1.1;
+  color:var(--text);
+}
+.header h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#f97316,#eab308);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.header p{color:var(--text2);margin-top:8px;font-size:15px;font-weight:400;}
+
+/* ===== SCORE BANNER ===== */
+.banner{
+  margin:28px 0 24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px 28px 24px;
+  box-shadow:var(--shadow-md);
+  display:flex;align-items:stretch;gap:28px;
+  position:relative;overflow:hidden;
+}
+.banner::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#3b82f6,#8b5cf6,#ec4899,#f97316,#eab308,#10b981);
+}
+
+/* Left: big score */
+.banner-main{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:160px;}
+.banner-num{
+  font-size:56px;font-weight:900;letter-spacing:-0.04em;line-height:1;
+  font-variant-numeric:tabular-nums;
+  color:var(--text);
+  transition:color 0.4s;
+}
+.banner-of{font-size:13px;color:var(--text3);font-weight:600;margin-top:4px;}
+.banner-pct{
+  margin-top:10px;padding:4px 14px;border-radius:20px;
+  font-size:13px;font-weight:700;
+  transition:all 0.3s;
+}
+.pct-high{background:#ecfdf5;color:#059669;}
+.pct-mid{background:#fffbeb;color:#d97706;}
+.pct-low{background:#fef2f2;color:#dc2626;}
+
+/* Right: subject mini bars */
+.banner-stats{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;align-content:center;}
+.min-stat{display:flex;align-items:center;gap:8px;}
+.min-stat-dot{width:10px;height:10px;border-radius:4px;flex-shrink:0;}
+.min-stat-info{flex:1;min-width:0;}
+.min-stat-name{font-size:11px;color:var(--text3);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.min-stat-val{font-size:15px;font-weight:800;letter-spacing:-0.01em;font-variant-numeric:tabular-nums;}
+.min-stat-bar{height:3px;border-radius:2px;background:var(--border2);overflow:hidden;margin-top:3px;}
+.min-stat-fill{height:100%;border-radius:2px;transition:width 0.6s var(--ease);}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  margin-bottom:12px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  transition:all 0.3s var(--ease);
+}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
+
+.card-head{
+  display:flex;align-items:center;
+  padding:16px 18px;cursor:pointer;
+  user-select:none;gap:12px;
+  transition:background 0.15s;
+}
+.card-head:active{background:rgba(0,0,0,0.015);}
+
+.card-icon{
+  width:42px;height:42px;
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+  transition:transform 0.3s var(--spring);
+}
+.card-head:hover .card-icon{transform:scale(1.1) rotate(-5deg);}
+
+.card-meta{flex:1;min-width:0;}
+.card-title{font-size:15px;font-weight:700;letter-spacing:-0.01em;}
+.card-sub{font-size:11px;color:var(--text3);font-weight:500;margin-top:1px;}
+.card-bar{height:4px;background:var(--border2);border-radius:2px;margin-top:7px;overflow:hidden;}
+.card-bar-fill{height:100%;border-radius:2px;transition:width 0.6s var(--ease);}
+
+.card-score{
+  font-size:22px;font-weight:800;letter-spacing:-0.02em;
+  font-variant-numeric:tabular-nums;text-align:right;
+  white-space:nowrap;flex-shrink:0;
+}
+.card-score small{font-size:12px;color:var(--text3);font-weight:500;}
+
+.card-arrow{
+  font-size:13px;color:var(--text3);flex-shrink:0;
+  transition:transform 0.3s var(--ease);
+}
+.card.collapsed .card-arrow{transform:rotate(-90deg);}
+.card.collapsed .card-body{display:none;}
+
+/* ===== CARD BODY ===== */
+.card-body{padding:0 18px 18px;border-top:1px solid var(--border2);overflow-x:hidden;}
+
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0 4px;}
+.sec-name{font-size:12px;font-weight:700;letter-spacing:0.02em;}
+.sec-sub{font-size:11px;color:var(--text3);font-weight:500;}
+
+.row{display:flex;align-items:center;padding:10px 0;gap:10px;border-bottom:1px solid var(--border2);}
+.row:last-child{border-bottom:none;}
+.row-label{flex:1;min-width:0;}
+.row-name{font-size:13px;font-weight:600;}
+.row-desc{font-size:10.5px;color:var(--text3);margin-top:1px;}
+
+.row-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.row-input{
+  width:62px;padding:8px 6px;
+  border:1.5px solid var(--border);
+  border-radius:var(--rs);
+  font-size:15px;font-weight:700;text-align:center;
+  outline:none;background:#fff;color:var(--text);
+  font-family:inherit;
+  transition:all 0.25s var(--ease);
+}
+.row-input::placeholder{color:#d6d3d1;font-weight:400;}
+.row-input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.row-input.over{border-color:var(--rose);box-shadow:0 0 0 3px rgba(244,63,94,0.08);background:#fff5f5;}
+.row-div{color:var(--text3);font-size:11px;font-weight:500;}
+.row-max{font-size:11px;color:var(--text3);font-weight:600;min-width:22px;text-align:right;}
+
+.slider-track{
+  position:relative;width:100%;height:20px;margin:2px 0 4px;
+  cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;
+  display:flex;align-items:center;
+}
+.slider-rail{width:100%;height:4px;border-radius:2px;background:var(--border2);position:relative;}
+.slider-fill{height:100%;border-radius:2px;background:var(--sky);opacity:0.3;position:absolute;top:0;left:0;pointer-events:none;}
+.slider-thumb{
+  width:18px;height:18px;border-radius:50%;background:#fff;
+  border:2.5px solid var(--sky);box-shadow:0 1px 4px rgba(0,0,0,0.1);
+  position:absolute;top:50%;transform:translate(-50%,-50%);
+  cursor:pointer;transition:transform 0.15s var(--ease),box-shadow 0.15s var(--ease);
+  pointer-events:none;
+}
+.slider-thumb:hover{transform:translate(-50%,-50%) scale(1.15);box-shadow:0 2px 10px rgba(59,130,246,0.25);}
+.slider-track:active .slider-thumb{transform:translate(-50%,-50%) scale(0.95);}
+
+/* ===== Icon Colors ===== */
+.ic-amber{background:#fef3c7;}
+.ic-sky{background:#dbeafe;}
+.ic-emerald{background:#d1fae5;}
+.ic-orange{background:#ffedd5;}
+.ic-pink{background:#fce7f3;}
+.ic-indigo{background:#e0e7ff;}
+.ic-violet{background:#ede9fe;}
+.ic-teal{background:#ccfbf1;}
+.ic-rose{background:#ffe4e6;}
+
+/* ===== Guidance Panel ===== */
+.guidance{
+  margin-top:24px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);box-shadow:var(--shadow-md);
+  overflow:hidden;
+  transition:all 0.4s var(--ease);
+}
+.guidance-head{
+  padding:20px 22px 16px;
+  border-bottom:1px solid var(--border2);
+}
+.guidance-title{font-size:17px;font-weight:800;letter-spacing:-0.01em;}
+.guidance-sub{font-size:12px;color:var(--text3);margin-top:3px;}
+.guidance-body{padding:6px 0;}
+.tier{
+  display:flex;align-items:stretch;
+  padding:12px 22px;gap:14px;
+  border-bottom:1px solid var(--border2);
+  transition:background 0.2s;
+}
+.tier:last-child{border-bottom:none;}
+.tier.active{background:rgba(16,185,129,0.04);}
+.tier.active .tier-range{border-color:#10b981;color:#059669;background:#ecfdf5;}
+.tier.active .tier-dot{background:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,0.15);}
+.tier-left{display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:4px;flex-shrink:0;width:44px;}
+.tier-dot{width:12px;height:12px;border-radius:50%;background:var(--text3);transition:all 0.3s;}
+.tier-line{flex:1;width:2px;background:var(--border2);border-radius:1px;}
+.tier-content{flex:1;min-width:0;}
+.tier-name{font-size:14px;font-weight:700;}
+.tier-range{
+  display:inline-block;padding:2px 10px;border-radius:6px;
+  font-size:11px;font-weight:700;
+  border:1.5px solid var(--border);color:var(--text2);
+  margin-left:8px;transition:all 0.3s;
+}
+.tier-schools{font-size:11.5px;color:var(--text2);margin-top:6px;line-height:1.8;}
+.tier-schools span{display:inline-block;margin:2px 4px 2px 0;white-space:nowrap;padding:2px 8px;border-radius:6px;background:var(--border2);font-size:11px;}
+.tier-schools span.shi{background:#dbeafe;color:#1d4ed8;}
+.tier-schools span.qu{background:#fef3c7;color:#92400e;}
+.tier-schools span.te{background:#ede9fe;color:#6d28d9;}
+.tier-schools span.min{background:#fce7f3;color:#be185d;}
+.tier-note{font-size:11px;color:var(--text2);margin-top:6px;padding:8px 12px;border-radius:8px;background:rgba(0,0,0,0.02);line-height:1.6;}
+.tier-note strong{color:var(--text);font-weight:700;}
+.tier-more{font-size:11px;color:var(--sky);cursor:pointer;margin-top:4px;font-weight:600;}
+.tier-more:hover{text-decoration:underline;}
+.tier-schools.hidden-extra span.extra{display:none;}
+/* Year compare */
+.year-compare{display:flex;flex-wrap:wrap;gap:8px;padding:14px 22px;border-bottom:1px solid var(--border2);background:rgba(0,0,0,0.01);}
+.yc-group{flex:1;min-width:140px;}
+.yc-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+.yc-row{display:flex;gap:6px;align-items:baseline;}
+.yc-val{font-size:15px;font-weight:800;color:var(--text);}
+.yc-year{font-size:10px;color:var(--text3);font-weight:600;}
+.yc-diff{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;}
+.yc-diff.down{background:#fee2e2;color:#dc2626;}
+.yc-diff.up{background:#dcfce7;color:#16a34a;}
+.yc-diff.same{background:var(--border2);color:var(--text3);}
+
+/* District selector */
+.dist-bar{display:flex;align-items:center;gap:10px;padding:12px 22px;border-bottom:1px solid var(--border2);background:rgba(0,0,0,0.01);}
+.dist-label{font-size:12px;font-weight:700;color:var(--text2);white-space:nowrap;}
+.dist-select{flex:1;max-width:220px;padding:7px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-size:13px;font-family:inherit;font-weight:600;color:var(--text);cursor:pointer;transition:border-color 0.2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
+.dist-select:focus{outline:none;border-color:var(--sky);}
+.dist-info{font-size:11px;color:var(--text3);font-weight:500;}
+.tier-schools span.local{outline:2px solid var(--sky);outline-offset:-1px;font-weight:700;}
+.tier-schools span.dim{opacity:0.35;}
+
+
+
+.footer{text-align:center;padding:20px 0 0;color:var(--text3);font-size:11px;font-weight:500;}
+.btn-reset{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 28px;border:1.5px solid var(--border);
+  border-radius:var(--rs);background:var(--card);
+  font-size:13px;font-weight:600;color:var(--text2);
+  cursor:pointer;transition:all 0.25s var(--ease);
+  font-family:inherit;box-shadow:var(--shadow-sm);
+}
+.btn-reset:hover{border-color:var(--rose);color:var(--rose);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.btn-reset:active{transform:scale(0.97);}
+
+.footer{text-align:center;padding:20px 0 0;color:var(--text3);font-size:11px;font-weight:500;}
+
+/* ===== Animations ===== */
+@keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.card{animation:slideUp 0.45s var(--ease) both;}
+.card:nth-child(1){animation-delay:.03s}.card:nth-child(2){animation-delay:.06s}
+.card:nth-child(3){animation-delay:.09s}.card:nth-child(4){animation-delay:.12s}
+.card:nth-child(5){animation-delay:.15s}.card:nth-child(6){animation-delay:.18s}
+.card:nth-child(7){animation-delay:.21s}.card:nth-child(8){animation-delay:.24s}
+.card:nth-child(9){animation-delay:.27s}
+
+@media(max-width:640px){
+  .container{padding:12px 14px 60px;}
+  .header h1{font-size:28px;}
+  .banner{flex-direction:column;gap:20px;padding:20px;}
+  .banner-num{font-size:44px;}
+  .banner-stats{grid-template-columns:1fr 1fr;}
+  .card-head{padding:12px 14px;gap:10px;}
+  .card-body{padding:0 14px 14px;}
+  .card-icon{width:36px;height:36px;font-size:17px;border-radius:10px;}
+  .row-input{width:54px;padding:7px 5px;font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-year">2026 · 上海</div>
+    <h1>中考<em>估分</em></h1>
+    <p>总分 750 分 · 按题目大类逐题细估</p>
+  </div>
+
+  <div class="banner">
+    <div class="banner-main">
+      <div class="banner-num" id="totalScore">0</div>
+      <div class="banner-of">满分 750</div>
+      <div class="banner-pct pct-high" id="totalPct">0%</div>
+    </div>
+    <div class="banner-stats" id="stats"></div>
+  </div>
+
+  <div id="app"></div>
+
+  <div style="text-align:center;margin-top:16px;">
+    <button class="btn-reset" onclick="resetAll()">🔄 重置全部</button>
+  </div>
+
+  <!-- Guidance Panel -->
+  <div class="guidance" id="guidancePanel">
+    <div class="guidance-head">
+      <div class="guidance-title">📋 志愿填报方向参考</div>
+      <div class="guidance-sub">基于 2024/2025 年录取数据 · 估分后自动匹配 · 仅供参考</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+              <span style="font-size:10px;padding:2px 8px;border-radius:6px;background:#dbeafe;color:#1d4ed8;font-weight:600;">市重点</span>
+              <span style="font-size:10px;padding:2px 8px;border-radius:6px;background:#fef3c7;color:#92400e;font-weight:600;">区重点</span>
+              <span style="font-size:10px;padding:2px 8px;border-radius:6px;background:#ede9fe;color:#6d28d9;font-weight:600;">特色高中</span>
+              <span style="font-size:10px;padding:2px 8px;border-radius:6px;background:#fce7f3;color:#be185d;font-weight:600;">民办</span>
+            </div>
+    </div>
+    <!-- District selector -->
+    <div class="dist-bar">
+      <span class="dist-label">📍 所在区：</span>
+      <select class="dist-select" id="distSelect" onchange="filterDistrict(this.value)">
+        <option value="">全部区（显示全市参考分）</option>
+        <option value="hp">黄浦区</option>
+        <option value="xh">徐汇区</option>
+        <option value="cn">长宁区</option>
+        <option value="ja">静安区</option>
+        <option value="pt">普陀区</option>
+        <option value="hk">虹口区</option>
+        <option value="yp">杨浦区</option>
+        <option value="pd">浦东新区</option>
+        <option value="mh">闵行区</option>
+        <option value="bs">宝山区</option>
+        <option value="jd">嘉定区</option>
+        <option value="sj">松江区</option>
+        <option value="qp">青浦区</option>
+        <option value="fx">奉贤区</option>
+        <option value="js">金山区</option>
+        <option value="cm">崇明区</option>
+      </select>
+      <span class="dist-info" id="distInfo">选择你所在的区，显示 2025 年该区录取分数</span>
+    </div>
+    <!-- Year-over-year control line comparison -->
+    <div class="year-compare">
+      <div class="yc-group"><div class="yc-label">自主招生</div><div class="yc-row"><span class="yc-val">605</span><span class="yc-year">'25</span><span class="yc-diff down">-2</span><span class="yc-val" style="font-size:12px;color:var(--text3)">607</span><span class="yc-year">'24</span></div></div>
+      <div class="yc-group"><div class="yc-label">名额分配</div><div class="yc-row"><span class="yc-val">605</span><span class="yc-year">'25</span><span class="yc-diff down">-2</span><span class="yc-val" style="font-size:12px;color:var(--text3)">607</span><span class="yc-year">'24</span></div></div>
+      <div class="yc-group"><div class="yc-label">统一招生</div><div class="yc-row"><span class="yc-val">513</span><span class="yc-year">'25</span><span class="yc-diff down">-5</span><span class="yc-val" style="font-size:12px;color:var(--text3)">518</span><span class="yc-year">'24</span></div></div>
+      <div class="yc-group"><div class="yc-label">中本贯通</div><div class="yc-row"><span class="yc-val">513</span><span class="yc-year">'25</span><span class="yc-diff down">-5</span><span class="yc-val" style="font-size:12px;color:var(--text3)">518</span><span class="yc-year">'24</span></div></div>
+    </div>
+    <div class="guidance-body" id="tierList"></div>
+  </div>
+
+  <div class="footer">仅供参考 · 以实际公布成绩为准 · 数据来源：上海招考热线</div>
+</div>
+
+<script>
+const D=[
+  {k:'chinese',n:'语文',i:'📖',ic:'ic-amber',d:'闭卷笔试 · 100分钟',mx:150,c:'#eab308',
+    ss:[
+      {t:'一、文言文',s:'约35分',its:[
+        {id:'c1',l:'默写与运用',ds:'古诗文背诵默写',m:13},
+        {id:'c2',l:'文言文对比阅读',ds:'课内外文言文比较阅读',m:22}]},
+      {t:'二、现代文',s:'约35分',its:[
+        {id:'c3',l:'现代文阅读（一）',ds:'记叙文/散文阅读',m:17},
+        {id:'c4',l:'现代文阅读（二）',ds:'说明文/议论文阅读',m:18}]},
+      {t:'三、综合运用',s:'约20分',its:[
+        {id:'c5',l:'综合运用',ds:'语言知识·名著阅读·综合探究',m:20}]},
+      {t:'四、作文',s:'60分',its:[
+        {id:'c6',l:'作文',ds:'命题/半命题作文',m:60}]}
+    ]},
+  {k:'math',n:'数学',i:'📐',ic:'ic-sky',d:'闭卷笔试 · 100分钟 · 25题',mx:150,c:'#3b82f6',
+    ss:[
+      {t:'一、选择题',s:'6题·24分',its:[
+        {id:'m1',l:'选择题 第1-6题',ds:'每题4分·4代数+2几何',m:24}]},
+      {t:'二、填空题',s:'12题·48分',its:[
+        {id:'m2',l:'基础填空 第7-17题',ds:'11题×4分·数式/方程/函数/概率/向量/几何',m:44},
+        {id:'m3',l:'压轴填空 第18题',ds:'图形关系综合·分类讨论',m:4}]},
+      {t:'三、解答题',s:'7题·78分',its:[
+        {id:'m4',l:'第19题·实数运算',ds:'根式/绝对值/指数',m:10},
+        {id:'m5',l:'第20题·方程/不等式',ds:'分式方程或不等式(组)',m:10},
+        {id:'m6',l:'第21题·函数',ds:'一次/二次/反比例函数',m:10},
+        {id:'m7',l:'第22题·综合实践',ds:'情境探究/拼图问题',m:10},
+        {id:'m8',l:'第23题·几何证明',ds:'圆的证明(垂径定理等)',m:12},
+        {id:'m9',l:'第24题·函数综合',ds:'距离/存在性问题',m:14},
+        {id:'m10',l:'第25题·几何综合',ds:'相似/面积/平行型压轴',m:12}]}
+    ]},
+  {k:'english',n:'外语',i:'🌐',ic:'ic-emerald',d:'笔试90min(含听力)+听说10min',mx:150,c:'#10b981',
+    ss:[
+      {t:'一、听力理解',s:'25分',its:[
+        {id:'e1',l:'听力A·听对话选图',ds:'根据对话选择正确图片',m:5},
+        {id:'e2',l:'听力B·听短文判断/选择',ds:'短文理解判断或选择',m:10},
+        {id:'e3',l:'听力C·听短文回答',ds:'听短文回答问题/填表',m:10}]},
+      {t:'二、语法与词汇',s:'约25分',its:[
+        {id:'e4',l:'语法选择/填空',ds:'语篇中考查语法运用',m:15},
+        {id:'e5',l:'词汇填空',ds:'根据语境填写适当词形',m:10}]},
+      {t:'三、阅读与写作',s:'约90分',its:[
+        {id:'e6',l:'完形填空',ds:'语篇理解·选择最佳选项',m:15},
+        {id:'e7',l:'阅读理解 A+B篇',ds:'A篇多模态(图表)+B篇阅读',m:20},
+        {id:'e8',l:'阅读理解 C+D篇',ds:'C篇补全信息+D篇深度阅读',m:20},
+        {id:'e9',l:'首字母填空',ds:'根据首字母和语境填词',m:10},
+        {id:'e10',l:'书面表达',ds:'写作(邮件/短文等)',m:15},
+        {id:'e11',l:'其他(回答问题等)',ds:'阅读回答问题等题型',m:10}]},
+      {t:'四、听说测试',s:'10分·人机对话',its:[
+        {id:'e12',l:'听说测试',ds:'朗读/情景问答/看图说话',m:10}]}
+    ]},
+  {k:'physics',n:'综合·物理',i:'⚡',ic:'ic-orange',d:'笔试70分+实验操作10分',mx:80,c:'#f97316',
+    ss:[
+      {t:'物理笔试',s:'70分',its:[
+        {id:'p1',l:'选择题',ds:'单选·约8-10题',m:20},
+        {id:'p2',l:'填空题',ds:'约6-8题',m:20},
+        {id:'p3',l:'计算题',ds:'力学/电学/热学计算',m:20},
+        {id:'p4',l:'综合/实验分析',ds:'实验设计/数据分析',m:10}]},
+      {t:'物理实验操作',s:'10分·可考2次取高分',its:[
+        {id:'p5',l:'实验操作考试',ds:'15分钟·取2次中高分',m:10}]}
+    ]},
+  {k:'chemistry',n:'综合·化学',i:'🧪',ic:'ic-pink',d:'笔试50分+实验操作5分',mx:55,c:'#ec4899',
+    ss:[
+      {t:'化学笔试',s:'50分',its:[
+        {id:'h1',l:'选择题',ds:'单选·约6-8题',m:15},
+        {id:'h2',l:'填空题',ds:'物质分类/化学方程式/实验',m:20},
+        {id:'h3',l:'简答与计算',ds:'化学计算/实验探究',m:15}]},
+      {t:'化学实验操作',s:'5分·可考2次取高分',its:[
+        {id:'h4',l:'实验操作考试',ds:'15分钟·取2次中高分',m:5}]}
+    ]},
+  {k:'cross',n:'综合·跨学科',i:'🔗',ic:'ic-indigo',d:'跨学科案例分析',mx:15,c:'#6366f1',
+    ss:[
+      {t:'跨学科案例分析',s:'15分',its:[
+        {id:'x1',l:'案例分析题',ds:'综合多学科知识分析实际问题',m:15}]}
+    ]},
+  {k:'daode',n:'道德与法治',i:'⚖️',ic:'ic-rose',d:'开卷笔试40min+日常考核',mx:60,c:'#f43f5e',
+    ss:[
+      {t:'统一考试（开卷）',s:'30分',its:[
+        {id:'d1',l:'客观题',ds:'基础知识选择与判断',m:10},
+        {id:'d2',l:'主观题',ds:'结合材料的分析论述题',m:20}]},
+      {t:'日常考核',s:'30分·学校评定',its:[
+        {id:'d3',l:'日常考核成绩',ds:'课堂+作业+社会实践',m:30}]}
+    ]},
+  {k:'history',n:'历史',i:'📜',ic:'ic-violet',d:'开卷笔试40min+日常考核',mx:60,c:'#8b5cf6',
+    ss:[
+      {t:'统一考试（开卷）',s:'30分',its:[
+        {id:'hi1',l:'客观题',ds:'史实判断与选择',m:10},
+        {id:'hi2',l:'主观题',ds:'史料阅读与分析论述',m:20}]},
+      {t:'日常考核',s:'30分·学校评定',its:[
+        {id:'hi3',l:'日常考核成绩',ds:'课堂+作业+探究活动',m:30}]}
+    ]},
+  {k:'sports',n:'体育与健身',i:'🏃',ic:'ic-teal',d:'统一考试(4-5月)+日常考核',mx:30,c:'#14b8a6',
+    ss:[
+      {t:'统一考试',s:'15分·四类项目',its:[
+        {id:'s1',l:'第一类项目',ds:'长跑(男1000m/女800m)等',m:6},
+        {id:'s2',l:'第二类项目',ds:'50m跑/立定跳远/跳绳等',m:3},
+        {id:'s3',l:'第三类项目',ds:'体操/武术/球类等',m:3},
+        {id:'s4',l:'第四类项目',ds:'游泳/乒乓球等',m:3}]},
+      {t:'日常考核',s:'15分·课程+体质',its:[
+        {id:'s5',l:'体育课成绩',ds:'课程考试成绩',m:9},
+        {id:'s6',l:'体质健康测试',ds:'国家学生体质健康标准',m:6}]}
+    ]},
+];
+
+// Stats config
+const STATS=[
+  {l:'语文',ks:['chinese'],c:'#eab308',mx:150},
+  {l:'数学',ks:['math'],c:'#3b82f6',mx:150},
+  {l:'外语',ks:['english'],c:'#10b981',mx:150},
+  {l:'综合测试',ks:['physics','chemistry','cross'],c:'#f97316',mx:150},
+  {l:'道德与法治',ks:['daode'],c:'#f43f5e',mx:60},
+  {l:'历史',ks:['history'],c:'#8b5cf6',mx:60},
+  {l:'体育',ks:['sports'],c:'#14b8a6',mx:30},
+];
+
+function renderStats(){
+  let h='';
+  for(const s of STATS){
+    const sk=s.ks.join('-');
+    h+=`<div class="min-stat"><div class="min-stat-dot" style="background:${s.c}"></div>`;
+    h+=`<div class="min-stat-info"><div class="min-stat-name">${s.l}</div>`;
+    h+=`<div class="min-stat-val" id="ms-${sk}">0</div>`;
+    h+=`<div class="min-stat-bar"><div class="min-stat-fill" id="msb-${sk}" style="background:${s.c};width:0%"></div></div></div></div>`;
+  }
+  document.getElementById('stats').innerHTML=h;
+}
+
+function render(){
+  let h='';
+  for(const s of D){
+    h+=`<div class="card collapsed" id="card-${s.k}"><div class="card-head" onclick="toggle('card-${s.k}')">`;
+    h+=`<div class="card-icon ${s.ic}">${s.i}</div>`;
+    h+=`<div class="card-meta"><div class="card-title">${s.n}</div><div class="card-sub">${s.d}</div>`;
+    h+=`<div class="card-bar"><div class="card-bar-fill" id="bar-${s.k}" style="width:0%;background:${s.c}"></div></div></div>`;
+    h+=`<div class="card-score" id="sum-${s.k}">0 <small>/ ${s.mx}</small></div>`;
+    h+=`<div class="card-arrow">▾</div></div><div class="card-body">`;
+    for(const sec of s.ss){
+      h+=`<div class="sec-head"><span class="sec-name" style="color:${s.c}">${sec.t}</span><span class="sec-sub">${sec.s}</span></div>`;
+      for(const it of sec.its){
+        h+=`<div class="row"><div class="row-label"><div class="row-name">${it.l}</div><div class="row-desc">${it.ds}</div></div>`;
+        h+=`<div class="row-wrap"><input type="number" class="row-input" id="${it.id}" min="0" max="${it.m}" placeholder="0" oninput="calc()">`;
+        h+=`<span class="row-div">/</span><span class="row-max">${it.m}</span></div></div>`;
+        h+=`<div class="slider-track" data-for="${it.id}" data-max="${it.m}"><div class="slider-rail"><div class="slider-fill"></div><div class="slider-thumb"></div></div></div>`;
+      }
+    }
+    h+=`</div></div>`;
+  }
+  document.getElementById('app').innerHTML=h;
+}
+
+function gv(id){
+  const el=document.getElementById(id);if(!el)return 0;
+  const v=parseFloat(el.value)||0,mx=parseFloat(el.max);
+  el.classList.toggle('over',v>mx);
+  return Math.max(0,Math.min(v,mx));
+}
+
+function calc(){
+  let total=0;const sums={};
+  for(const s of D){
+    let sum=0;
+    for(const sec of s.ss)for(const it of sec.its)sum+=gv(it.id);
+    sum=Math.round(sum*10)/10;total+=sum;sums[s.k]=sum;
+    const se=document.getElementById('sum-'+s.k);
+    if(se)se.innerHTML=`${sum} <small>/ ${s.mx}</small>`;
+    const be=document.getElementById('bar-'+s.k);
+    if(be)be.style.width=Math.min(100,sum/s.mx*100)+'%';
+  }
+  total=Math.round(total*10)/10;
+  document.getElementById('totalScore').textContent=total;
+  // Color the big number based on score level
+  const pct=total/750*100;
+  const numEl=document.getElementById('totalScore');
+  if(pct>=85)numEl.style.color='#059669';
+  else if(pct>=60)numEl.style.color='#d97706';
+  else if(pct>0)numEl.style.color='#dc2626';
+  else numEl.style.color='var(--text)';
+
+  const pEl=document.getElementById('totalPct');
+  pEl.textContent=pct.toFixed(1)+'%';
+  pEl.className='banner-pct '+(pct>=80?'pct-high':pct>=60?'pct-mid':'pct-low');
+
+  // Mini stats
+  for(const s of STATS){
+    const sk=s.ks.join('-');
+    const v=s.ks.reduce((a,k)=>a+(sums[k]||0),0);
+    const se=document.getElementById('ms-'+sk);if(se)se.textContent=v;
+    const be=document.getElementById('msb-'+sk);if(be)be.style.width=Math.min(100,v/s.mx*100)+'%';
+  }
+  updateGuidance(total);
+  saveData();
+}
+
+// ===== GUIDANCE TIERS =====
+// school tag class: shi=市重, qu=区重, te=特色, min=民办
+const TIERS=[
+  {name:'顶尖四校',range:'700+',min:700,max:999,
+    schools:[
+      {n:'华师二附',s:709.5,c:'shi'},{n:'复旦附中',s:707.5,c:'shi'},{n:'上海中学',s:707,c:'shi'},{n:'交大附中',s:707,c:'shi'},
+      {n:'复附浦东',s:703.5,c:'shi'},{n:'上海实验',s:703,c:'shi'},{n:'复附徐汇',s:702.5,c:'shi'},{n:'华二松江',s:702,c:'shi'},
+      {n:'华二普陀',s:701.5,c:'shi'},
+    ],
+    note:'<strong>定位：</strong>全市顶尖，前1%。四校+四校分校，2025分数线全部≥700。<br><strong>建议：</strong>冲自主招生，同时名额分配到区保底。关注四校分校（华二松江/宝山/普陀、复附浦东/青浦）性价比更高。'},
+  {name:'八大级别市重',range:'690-700',min:690,max:700,
+    schools:[
+      {n:'建平中学',s:699.5,c:'shi'},{n:'七宝中学',s:699,c:'shi'},{n:'交附闵分',s:697,c:'shi'},{n:'进才中学',s:696.5,c:'shi'},
+      {n:'华二宝山',s:696,c:'shi'},{n:'南模中学',s:695.5,c:'shi'},{n:'上师附中',s:695.5,c:'shi'},{n:'华二紫竹',s:695,c:'shi'},
+      {n:'曹杨二中',s:692,c:'shi'},{n:'上中东校',s:692,c:'shi'},{n:'松江二中',s:692,c:'shi'},{n:'上师闵分',s:691.5,c:'shi'},
+      {n:'控江中学',s:690,c:'shi'},{n:'市二梅陇(闵行)',s:690,c:'shi'},
+    ],
+    note:'<strong>定位：</strong>八大级别市重点（建平、南模、七宝、松江二中等）。2025年分数线整体稳定。<br><strong>建议：</strong>自招冲一冲，名额分配到区是主战场。注意部分分校分数较低可捡漏。'},
+  {name:'一流市重',range:'680-690',min:680,max:690,
+    schools:[
+      {n:'洋泾中学',s:689.5,c:'shi'},{n:'复附青浦',s:689.5,c:'shi'},
+      {n:'位育中学',s:689,c:'shi'},{n:'向明浦江',s:689,c:'shi'},{n:'交附嘉定',s:689,c:'shi'},{n:'复旦二附',s:688,c:'shi'},
+      {n:'川沙中学',s:686.5,c:'shi'},{n:'闵行中学',s:685.5,c:'shi'},{n:'市西中学',s:685,c:'shi'},
+      {n:'晋元高级',s:684,c:'shi'},{n:'上外云间',s:684,c:'shi'},{n:'上师松分',s:684,c:'shi'},
+      {n:'杨浦高级',s:683.5,c:'shi'},{n:'行知中学',s:683.5,c:'shi'},
+      {n:'市二中学',s:682.5,c:'shi'},{n:'延安中学',s:682.5,c:'shi'},
+      {n:'大同中学',s:682,c:'shi'},{n:'上师宝分',s:681,c:'shi'},{n:'格致中学',s:680.5,c:'shi'},{n:'复旦复兴',s:680,c:'shi'},
+    ],
+    note:'<strong>定位：</strong>优质市重点，竞争依然激烈但有机会。<br><strong>建议：</strong>名额分配到区+到校双保险，统一招生也可冲。关注“低分高质”学校如洋泾、延安、行知。'},
+  {name:'中坚市重',range:'666-680',min:666,max:680,
+    schools:[
+      {n:'松江一中',s:679.5,c:'shi'},{n:'奉贤中学',s:679.5,c:'shi'},
+      {n:'格致奉贤',s:679,c:'shi'},{n:'上师嘉分',s:679,c:'shi'},{n:'同济一附',s:677.5,c:'shi'},
+      {n:'南洋中学',s:677,c:'shi'},{n:'宜川中学',s:677,c:'shi'},{n:'嘉定一中',s:677,c:'shi'},
+      {n:'市北中学',s:676.5,c:'shi'},{n:'向明中学',s:675,c:'shi'},{n:'向明浦江(黄浦)',s:674,c:'shi'},
+      {n:'南汇中学',s:674,c:'shi'},{n:'复旦中学',s:673.5,c:'shi'},{n:'华师东昌',s:673,c:'te'},
+      {n:'华二临港',s:673,c:'shi'},{n:'高桥中学',s:672.5,c:'shi'},{n:'格致奉贤(奉贤)',s:671.5,c:'shi'},
+      {n:'华师一附',s:670.5,c:'shi'},{n:'金山中学',s:670,c:'shi'},{n:'敬业中学',s:669.5,c:'shi'},
+      {n:'青浦高级',s:668.5,c:'shi'},{n:'育才中学',s:668,c:'shi'},{n:'莘庄中学',s:667.5,c:'qu'},
+      {n:'吴淞中学',s:667,c:'shi'},{n:'上大附中',s:666,c:'shi'},{n:'上闵外',s:679.5,c:'qu'},
+    ],
+    note:'<strong>定位：</strong>市重点主力区间。2025年该段学校整体稳定，部分学校小幅波动。<br><strong>建议：</strong>统一招生是主战场。可适当冲一冲往年高分校，注意梯度。'},
+  {name:'市重末段/顶尖区重',range:'648-666',min:648,max:666,
+    schools:[
+      {n:'新中高级',s:665,c:'shi'},{n:'上外大境',s:664,c:'shi'},{n:'上财北郊',s:664.5,c:'shi'},{n:'曹杨中学',s:661,c:'te'},
+      {n:'上理附中',s:661,c:'te'},{n:'徐汇中学',s:663.5,c:'te'},
+      {n:'海事北蔡',s:663,c:'te'},{n:'嘉一实高',s:663,c:'qu'},{n:'西南位育',s:660,c:'min'},
+      {n:'华政松高',s:659,c:'qu'},{n:'卢湾高级',s:659,c:'shi'},{n:'华师三附',s:656.5,c:'shi'},
+      {n:'上实东滩',s:656,c:'shi'},{n:'朱家角',s:656,c:'shi'},{n:'华理科高',s:654.5,c:'qu'},
+      {n:'华师周浦',s:654.5,c:'qu'},{n:'中国中学',s:652.5,c:'qu'},{n:'光明中学',s:652,c:'shi'},
+      {n:'市三女中',s:652,c:'shi'},{n:'闵行三中',s:652.5,c:'te'},
+      {n:'甘泉外语',s:650.5,c:'te'},{n:'华理曙光',s:650.5,c:'te'},{n:'市东中学',s:650,c:'qu'},
+      {n:'风华中学',s:649.5,c:'qu'},{n:'罗店中学',s:649.5,c:'te'},{n:'嘉定二中',s:648.5,c:'te'},
+      {n:'久隆模范(收费)',s:648,c:'qu'},{n:'文来中学',s:648,c:'min'},
+    ],
+    note:'<strong>定位：</strong>市重末段或区重/特色高中顶尖。特色高中（东昌、曹杨、罗店等）享受市重待遇。<br><strong>建议：</strong>名额分配到校是利器！统一招生关注特色高中，性价比极高。'},
+  {name:'区重点（中上）',range:'620-648',min:620,max:648,
+    schools:[
+      {n:'上南中学',s:647.5,c:'qu'},
+      {n:'新川中学',s:645.5,c:'qu'},{n:'华理科高(闵行)',s:645.5,c:'qu'},{n:'上师附外',s:643.5,c:'qu'},
+      {n:'东华附高',s:642,c:'qu'},{n:'市四中学',s:641.5,c:'qu'},{n:'华师天山',s:641.5,c:'qu'},
+      {n:'同济二附',s:641,c:'te'},{n:'上师虹高',s:641,c:'qu'},{n:'华师临港',s:640,c:'qu'},
+      {n:'上财附中',s:638,c:'qu'},{n:'崇明中学',s:638,c:'shi'},{n:'市八中学',s:636.5,c:'qu'},
+      {n:'民立中学',s:636,c:'qu'},{n:'上师嘉高',s:636,c:'qu'},{n:'北外田园',s:635.5,c:'qu'},
+      {n:'六十中',s:635,c:'shi'},{n:'宝山中学',s:635,c:'qu'},{n:'陆行中学',s:635,c:'qu'},
+      {n:'三林中学',s:634.5,c:'qu'},{n:'五十四中',s:632,c:'qu'},{n:'东华致远',s:631.5,c:'qu'},
+      {n:'复旦实验',s:631,c:'qu'},{n:'青浦一中',s:631,c:'te'},{n:'建青实验',s:630.5,c:'qu'},
+      {n:'高行中学',s:627.5,c:'qu'},{n:'上音北虹',s:627,c:'qu'},{n:'通河中学',s:626,c:'qu'},
+      {n:'杨思高级',s:626,c:'qu'},{n:'张堰中学',s:626,c:'qu'},{n:'田家炳',s:624.5,c:'min'},
+      {n:'长征中学',s:622.5,c:'qu'},{n:'安亭高级',s:623.5,c:'qu'},{n:'市十中学',s:621.5,c:'qu'},
+      {n:'彭浦中学',s:621.5,c:'qu'},{n:'华政附中',s:620.5,c:'te'},{n:'华东模范',s:620.5,c:'shi'},
+    ],
+    note:'<strong>定位：</strong>区重点主力区间，学校选择丰富。<br><strong>建议：</strong>统一招生认真填1-15志愿，梯度合理（冲3+稳5+保7）。关注“市重待遇”的回民中学(601)、六十中(635)、华东模范(620.5)、卢湾高级(659)、崇明中学(638)等低分市重。'},
+  {name:'区重点（一般）',range:'580-620',min:580,max:620,
+    schools:[
+      {n:'同济中学',s:619.5,c:'qu'},{n:'建平世纪',s:619.5,c:'qu'},{n:'华师松高',s:619,c:'qu'},
+      {n:'鲁迅中学',s:614.5,c:'qu'},{n:'古美高级',s:614.5,c:'qu'},{n:'文绮中学',s:613.5,c:'qu'},
+      {n:'顾村中学',s:611.5,c:'qu'},{n:'上大嘉高',s:611.5,c:'qu'},{n:'上理储能',s:610.5,c:'qu'},
+      {n:'茸一中学',s:610,c:'qu'},{n:'南汇一中',s:609.5,c:'qu'},{n:'仙霞高级',s:607,c:'qu'},
+      {n:'市一中学',s:606.5,c:'qu'},{n:'中原中学',s:606,c:'qu'},{n:'上音安师',s:605,c:'te'},
+      {n:'香山中学',s:603,c:'te'},{n:'东湖中学',s:603,c:'qu'},{n:'行知实验',s:602,c:'qu'},
+      {n:'中医浦江',s:601.5,c:'qu'},{n:'回民中学',s:601,c:'shi'},{n:'市南中学',s:600,c:'qu'},
+      {n:'同济创意',s:597.5,c:'qu'},{n:'上师二附',s:597.5,c:'te'},{n:'大团高级',s:596,c:'qu'},
+      {n:'中光高级',s:595.5,c:'qu'},{n:'同济澄衷',s:594.5,c:'qu'},{n:'金汇高级',s:594,c:'qu'},
+      {n:'闸北八中',s:593,c:'qu'},{n:'紫竹园',s:592.5,c:'te'},{n:'上理少云',s:591.5,c:'qu'},
+      {n:'甘泉(法语)',s:589.5,c:'te'},{n:'文建中学',s:589,c:'qu'},{n:'西郊学校',s:587,c:'qu'},
+      {n:'上音比乐',s:586,c:'qu'},{n:'桃浦中学',s:586,c:'qu'},{n:'同济七一',s:584.5,c:'qu'},
+      {n:'浦东中学',s:581,c:'qu'},{n:'上师四附',s:581,c:'qu'},{n:'海滨中学',s:578,c:'qu'},
+      {n:'继光高级',s:567,c:'qu'},{n:'进华中学',s:575.5,c:'qu'},{n:'封浜高级',s:576,c:'qu'},
+      {n:'民星中学',s:573.5,c:'qu'},{n:'民本中学',s:572,c:'qu'},{n:'青浦二中',s:570.5,c:'qu'},
+      {n:'泾南中学',s:569,c:'qu'},{n:'华师枫泾',s:569,c:'te'},{n:'扬子中学',s:563,c:'qu'},
+      {n:'培佳双语',s:562.5,c:'qu'},{n:'上体附中',s:562,c:'qu'},{n:'新场中学',s:564,c:'qu'},
+    ],
+    note:'<strong>定位：</strong>区重末段。注意部分学校挂“市重”牌子但分数不高（回民601、光明652、六十中635）。<br><strong>建议：</strong>名额分配到校可能是最大机会！统一招生多填保底志愿。'},
+  {name:'普通高中',range:'513-580',min:513,max:580,
+    schools:[
+      {n:'零陵中学',s:626.5,c:'普高'},{n:'华理附中',s:617.5,c:'普高'},{n:'华师张江',s:616,c:'普高'},
+      {n:'奉城高级',s:615.5,c:'普高'},{n:'育民中学',s:612,c:'普高'},{n:'尚德实验',s:621,c:'普高'},
+      {n:'闵中东校',s:639.5,c:'普高'},{n:'民办茸一',s:610,c:'普高'},{n:'七宝鑫都',s:664.5,c:'普高'},
+      {n:'交附闵实',s:665.5,c:'普高'},{n:'川沙友仁',s:665,c:'普高'},{n:'宝山世外',s:663,c:'普高'},
+      {n:'华曜浦东',s:660.5,c:'普高'},{n:'七宝浦江',s:659.5,c:'普高'},{n:'金山世外',s:635.5,c:'普高'},
+      {n:'浦外东校',s:634,c:'普高'},{n:'九峰实验',s:631,c:'普高'},{n:'华师永德',s:629,c:'普高'},
+      {n:'闵行实高',s:623.5,c:'普高'},{n:'董恒甫',s:586,c:'普高'},{n:'存志高级',s:580.5,c:'普高'},
+      {n:'景秀高级',s:593,c:'普高'},{n:'协和教科',s:576.5,c:'普高'},{n:'龚路中学',s:578.5,c:'普高'},
+      {n:'向东中学',s:565,c:'普高'},{n:'长岛中学',s:573,c:'普高'},{n:'江镇中学',s:572.5,c:'qu'},
+      {n:'民办光华',s:516,c:'普高'},{n:'三林东校',s:560.5,c:'普高'},{n:'松江四中',s:560.5,c:'普高'},
+      {n:'西南高级',s:551.5,c:'普高'},{n:'民办新和',s:550.5,c:'普高'},{n:'高东中学',s:551,c:'普高'},
+      {n:'祝桥高级',s:551,c:'普高'},{n:'科德高级',s:549,c:'普高'},{n:'领科双语',s:548,c:'普高'},
+      {n:'沪新中学',s:546,c:'普高'},{n:'吴迅中学',s:543,c:'普高'},{n:'上大市北',s:542.5,c:'普高'},
+      {n:'博华高级',s:541.5,c:'普高'},{n:'万科双语',s:539.5,c:'普高'},{n:'青浦协和',s:536.5,c:'普高'},
+      {n:'民办宏文',s:533,c:'普高'},{n:'老港中学',s:532.5,c:'普高'},{n:'赫贤学校',s:528.5,c:'普高'},
+      {n:'安生学校',s:524,c:'普高'},{n:'民办扬波',s:523.5,c:'普高'},{n:'泥城中学',s:522,c:'普高'},
+      {n:'亭林中学',s:518.5,c:'qu'},{n:'青浦世外',s:518.5,c:'普高'},{n:'上实剑桥',s:518,c:'普高'},
+      {n:'金苹果',s:517,c:'普高'},{n:'爱菊学校',s:517,c:'普高'},
+    ],
+    note:'<strong>定位：</strong>普高线513分。部分“新校”分数较高（七宝鑫都664.5、交附闵实665.5、川沙友仁665）。<br><strong>建议：</strong>民办普高选择多但学费较高。公办普高1-15志愿梯度填写，前冲后保。关注新办学校可能捡漏。'},
+  {name:'中本贯通/中职',range:'<513',min:0,max:513,
+    schools:[
+      {n:'中本贯通',s:513,c:'职'},{n:'五年一贯制',s:400,c:'职'},{n:'普通中专',s:350,c:'职'},
+    ],
+    note:'<strong>定位：</strong>中本贯通线=普高线513分。中本贯通7年可获本科学历，近年越来越热门。<br><strong>建议：</strong>如果分数在普高线附近，中本贯通是很好的选择。热门专业（护理、学前教育、计算机）分数较高，提前了解专业方向。'},
+];
+
+// ===== DISTRICT SCORES (2025 data) =====
+// Map: school base name → { district_key: score }
+// Sources: 2025 official 1-15 data. Official = gov pages, sohu ranking table (290 schools).
+// Cross-district data from: Yangpu(gov), Qingpu(gov), Jing'an(bendibao).
+const DS={
+  // === 委属四校 (cross-district) ===
+  '上海中学':{yp:707,qp:711,pd:710,hk:705.5},
+  '复旦附中':{yp:707.5,qp:708},
+  '交大附中':{yp:707,qp:707.5},
+  '华师二附':{yp:707,qp:707},
+  // === 四校分校 (cross-district) ===
+  '复附徐汇':{pd:703.5},
+  '上海实验':{pd:702},
+  '华二松江':{pd:701,sj:702},
+  '华二普陀':{pt:701.5},
+  '复附浦东':{pd:703.5},
+  '复附青浦':{qp:689.5},
+  '交附嘉定':{jd:689},
+  '华二宝山':{bs:696},
+  '交附闵分':{mh:697},
+  '上师闵分':{mh:691.5},
+  '华二紫竹':{mh:695},
+  '市二梅陇':{xh:682.5,mh:690},
+  '上师附中':{pd:695.5},
+  '上师宝分':{bs:681},
+  '上师松分':{sj:684},
+  '上师嘉分':{jd:679},
+  // === 区属市重 (home district) ===
+  '建平中学':{pd:699.5},
+  '南模中学':{xh:695.5},
+  '七宝中学':{mh:699},
+  '松江二中':{sj:692},
+  '进才中学':{pd:696.5},
+  '控江中学':{yp:690},
+  '位育中学':{xh:689},
+  '曹杨二中':{pt:692},
+  '上中东校':{pd:692},
+  '市西中学':{ja:685},
+  '洋泾中学':{pd:689.5},
+  '延安中学':{cn:682.5},
+  '行知中学':{bs:683.5},
+  '大同中学':{hp:682},
+  '市二中学':{xh:682.5},
+  '川沙中学':{pd:686.5},
+  '闵行中学':{mh:685.5},
+  '晋元高级':{pt:684},
+  '上外云间':{sj:684},
+  '杨浦高级':{yp:683.5},
+  '复旦二附':{yp:688},
+  '松江一中':{sj:679.5},
+  '奉贤中学':{fx:679.5},
+  '格致中学':{hp:680.5},
+  '同济一附':{yp:677.5},
+  '南洋中学':{xh:677},
+  '宜川中学':{pt:677},
+  '嘉定一中':{jd:677},
+  '市北中学':{ja:676.5},
+  '向明中学':{hp:675},
+  '南汇中学':{pd:674},
+  '复旦中学':{cn:673.5},
+  '华师东昌':{pd:673},
+  '华二临港':{fx:673},
+  '高桥中学':{pd:672.5},
+  '格致奉贤':{hp:679,fx:671.5},
+  '华师一附':{hk:670.5},
+  '金山中学':{js:670},
+  '敬业中学':{hp:669.5},
+  '青浦高级':{qp:668.5},
+  '育才中学':{ja:668},
+  '吴淞中学':{bs:667},
+  '上大附中':{bs:666},
+  '新中高级':{ja:665},
+  '上外大境':{hp:664},
+  '上财北郊':{hk:664.5},
+  '复旦复兴':{hk:680},
+  '曹杨中学':{pt:661},
+  '上理附中':{yp:661},
+  '上闵外':{mh:679.5},
+  '市三女中':{cn:652},
+  '华师三附':{js:656.5},
+  '上实东滩':{cm:656},
+  '光明中学':{hp:652},
+  '上师嘉高':{jd:636},
+  '崇明中学':{cm:638},
+  '六十中':{ja:635},
+  '华东模范':{ja:620.5},
+  '卢湾高级':{hp:659},
+  '回民中学':{ja:601},
+  // === 区重/特色 (home district) ===
+  '久隆模范':{ja:648},
+  '上南中学':{pd:647.5},
+  '风华中学':{ja:649.5},
+  '甘泉外语':{pt:650.5},
+  '市东中学':{yp:650},
+  '华理科高':{pd:654.5},
+  '华师周浦':{pd:654.5},
+  '中国中学':{xh:652.5},
+  '闵行三中':{mh:652.5},
+  '华理曙光':{fx:650.5},
+  '罗店中学':{bs:649.5},
+  '嘉定二中':{jd:648.5},
+  '文来中学':{mh:648},
+  '新川中学':{pd:645.5},
+  '上师附外':{sj:643.5},
+  '市四中学':{xh:641.5},
+  '华师天山':{cn:641.5},
+  '同济二附':{pt:641},
+  '上师虹高':{hk:641},
+  '上财附中':{yp:638},
+  '市八中学':{hp:636.5},
+  '民立中学':{ja:636},
+  '宝山中学':{bs:635},
+  '陆行中学':{pd:635},
+  '三林中学':{pd:634.5},
+  '五十四中':{xh:632},
+  '青浦一中':{qp:631},
+  '复旦实验':{yp:631},
+  '建青实验':{cn:630.5},
+  '高行中学':{pd:627.5},
+  '上音北虹':{hk:627},
+  '通河中学':{bs:626},
+  '杨思高级':{pd:626},
+  '张堰中学':{js:626},
+  '安亭高级':{jd:623.5},
+  '长征中学':{pt:622.5},
+  '彭浦中学':{ja:621.5},
+  '市十中学':{hp:621.5},
+  '华政附中':{cn:620.5},
+  '同济中学':{yp:619.5},
+  '建平世纪':{pd:619.5},
+  '鲁迅中学':{hk:614.5},
+  '顾村中学':{bs:611.5},
+  '上大嘉高':{jd:611.5},
+  '上理储能':{hp:610.5},
+  '南汇一中':{pd:609.5},
+  '仙霞高级':{cn:607},
+  '中原中学':{yp:606},
+  '上音安师':{pt:605},
+  '香山中学':{pd:603},
+  '行知实验':{bs:602},
+  '同济创意':{hp:597.5},
+  '上师二附':{js:597.5},
+  '大团高级':{pd:596},
+  '中光高级':{jd:595.5},
+  '闸北八中':{ja:593},
+  '紫竹园':{xh:592.5},
+  '上理少云':{yp:591.5},
+  '文建中学':{pd:589},
+  '西郊学校':{cn:587},
+  '上音比乐':{hp:586},
+  '桃浦中学':{pt:586},
+  '同济七一':{ja:584.5},
+  '浦东中学':{pd:581},
+  '海滨中学':{bs:578},
+  '继光高级':{hk:567},
+  '进华中学':{pt:575.5},
+  '封浜高级':{jd:576},
+  '民星中学':{yp:573.5},
+  '民本中学':{cm:572},
+  '青浦二中':{qp:570.5},
+  '泾南中学':{pd:569},
+  '扬子中学':{cm:563},
+  '培佳双语':{pt:562.5},
+  '上体附中':{yp:562},
+  '新场中学':{pd:564},
+  '堡镇中学':{cm:513},
+  '朱家角':{qp:656},
+  '莘庄中学':{mh:667.5},
+  '嘉一实高':{jd:663},
+  '西南位育':{xh:660},
+  '华政松高':{sj:659},
+  '徐汇中学':{xh:663.5},
+  '海事北蔡':{pd:663},
+  '华理科高(闵行)':{mh:645.5},
+  '北外田园':{mh:635.5},
+  '东华附高':{sj:642},
+  '华师临港':{pd:640},
+  '东华致远':{fx:631.5},
+  '市一中学':{ja:606.5},
+  '东湖中学':{qp:603},
+  '中医浦江':{mh:601.5},
+  '市南中学':{hp:600},
+  '同济澄衷':{hk:594.5},
+  '金汇高级':{mh:594},
+  '华师松高':{sj:619},
+  '文绮中学':{mh:613.5},
+  '茸一中学':{sj:610},
+  '古美高级':{mh:614.5},
+  '华师枫泾':{js:569},
+};
+
+let currentDist='';
+function renderTiers(dist){
+  currentDist=dist||'';
+  const SHOW_LIMIT=8;
+  let h='';
+  for(let i=0;i<TIERS.length;i++){
+    const t=TIERS[i];
+    h+=`<div class="tier" id="tier-${i}"><div class="tier-left"><div class="tier-dot"></div>${i<TIERS.length-1?'<div class="tier-line"></div>':''}</div>`;
+    h+=`<div class="tier-content">`;
+    h+=`<div class="tier-name">${t.name}<span class="tier-range">${t.range}分</span></div>`;
+    const hasExtra=t.schools.length>SHOW_LIMIT;
+    h+=`<div class="tier-schools${hasExtra?' hidden-extra':''}" id="tier-sch-${i}">`;
+    for(let j=0;j<t.schools.length;j++){
+      const s=t.schools[j];
+      const extra=j>=SHOW_LIMIT?' extra':'';
+      // District-specific score
+      const baseName=s.n.replace(/\(.*?\)/g,'');
+      const ds=DS[baseName];
+      let score=s.s;
+      let isLocal=false;
+      let dimClass='';
+      if(dist && ds && ds[dist]!==undefined){
+        score=ds[dist];
+        isLocal=true;
+      } else if(dist && ds && !ds[dist]){
+        dimClass=' dim';
+      }
+      const cls=(s.c||'')+(isLocal?' local':'')+dimClass+extra;
+      h+=`<span class="${cls}">${s.n}(${score})</span>`;
+    }
+    h+=`</div>`;
+    if(hasExtra){
+      h+=`<div class="tier-more" id="tier-more-${i}" onclick="toggleSchools(${i},${t.schools.length})">展开更多 ${t.schools.length-SHOW_LIMIT} 所学校 ▼</div>`;
+    }
+    h+=`<div class="tier-note">${t.note}</div></div></div>`;
+  }
+  document.getElementById('tierList').innerHTML=h;
+}
+function toggleSchools(i,total){
+  const el=document.getElementById('tier-sch-'+i);
+  const btn=document.getElementById('tier-more-'+i);
+  if(el.classList.contains('hidden-extra')){
+    el.classList.remove('hidden-extra');
+    btn.textContent='收起 ▲';
+  } else {
+    el.classList.add('hidden-extra');
+    btn.textContent='展开更多 '+(total-8)+' 所学校 ▼';
+  }
+}
+function filterDistrict(val){
+  const info=document.getElementById('distInfo');
+  if(val){
+    const names={hp:'黄浦',xh:'徐汇',cn:'长宁',ja:'静安',pt:'普陀',hk:'虹口',yp:'杨浦',pd:'浦东',mh:'闵行',bs:'宝山',jd:'嘉定',sj:'松江',qp:'青浦',fx:'奉贤',js:'金山',cm:'崇明'};
+    info.textContent='已选择 '+names[val]+'区（2025数据），加亮学校有该区分数线，灰色为暂无数据';
+  } else {
+    info.textContent='选择你所在的区，显示 2025 年该区录取分数';
+  }
+  renderTiers(val);
+  saveData();
+}
+
+function updateGuidance(total){
+  // Highlight matching tier
+  let matchIdx=-1;
+  for(let i=0;i<TIERS.length;i++){
+    const el=document.getElementById('tier-'+i);
+    if(total>=TIERS[i].min && total<TIERS[i].max){
+      el.classList.add('active');
+      if(matchIdx===-1)matchIdx=i;
+    } else {
+      el.classList.remove('active');
+    }
+  }
+  // Scroll active tier into view
+  if(matchIdx>=0){
+    const el=document.getElementById('tier-'+matchIdx);
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+  }
+}
+
+renderTiers();
+
+// Custom slider — pointer events with capture (no native scroll bug)
+function sliderUpdate(track,clientX){
+  const rail=track.querySelector('.slider-rail');
+  const rect=rail.getBoundingClientRect();
+  const mx=parseFloat(track.dataset.max)||100;
+  let ratio=(clientX-rect.left)/rect.width;
+  ratio=Math.max(0,Math.min(1,ratio));
+  let val=Math.round(ratio*mx*2)/2;
+  const inp=document.getElementById(track.dataset.for);
+  if(inp){inp.value=val;calc();}
+  track.querySelector('.slider-thumb').style.left=(val/mx*100)+'%';
+  track.querySelector('.slider-fill').style.width=(val/mx*100)+'%';
+}
+document.addEventListener('pointerdown',function(e){
+  const track=e.target.closest('.slider-track');
+  if(!track)return;
+  e.preventDefault();
+  track.setPointerCapture(e.pointerId);
+  sliderUpdate(track,e.clientX);
+  function onMove(ev){ev.preventDefault();sliderUpdate(track,ev.clientX);}
+  function onUp(ev){
+    track.removeEventListener('pointermove',onMove);
+    track.removeEventListener('pointerup',onUp);
+    track.removeEventListener('pointercancel',onUp);
+  }
+  track.addEventListener('pointermove',onMove);
+  track.addEventListener('pointerup',onUp);
+  track.addEventListener('pointercancel',onUp);
+});
+// Sync input→slider visual
+document.addEventListener('input',function(e){
+  if(e.target.classList.contains('row-input')){
+    const row=e.target.closest('.row');
+    if(row){
+      const track=row.nextElementSibling;
+      if(track&&track.classList.contains('slider-track')){
+        const mx=parseFloat(track.dataset.max)||100;
+        const val=parseFloat(e.target.value)||0;
+        track.querySelector('.slider-thumb').style.left=(val/mx*100)+'%';
+        track.querySelector('.slider-fill').style.width=(val/mx*100)+'%';
+      }
+    }
+  }
+});
+function toggle(id){document.getElementById(id).classList.toggle('collapsed');saveData();}
+
+// ===== LocalStorage =====
+const STORAGE_KEY='sh_zhongkao_gufen_2026';
+function saveData(){
+  const data={};
+  document.querySelectorAll('.row-input').forEach(el=>{
+    if(el.value)data[el.id]=el.value;
+  });
+  // Save collapsed states
+  const collapsed=[];
+  document.querySelectorAll('.card.collapsed').forEach(c=>collapsed.push(c.id));
+  data.__collapsed=collapsed;
+  // Save district selection
+  const dist=document.getElementById('distSelect').value;
+  if(dist)data.__dist=dist;
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}
+}
+function loadData(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    // Restore input values
+    for(const[id,val] of Object.entries(data)){
+      if(id==='__collapsed')continue;
+      const el=document.getElementById(id);
+      if(el)el.value=val;
+    }
+    // Sync custom sliders
+    document.querySelectorAll('.row-input').forEach(input=>{
+      const row=input.closest('.row');
+      if(row){
+        const track=row.nextElementSibling;
+        if(track&&track.classList.contains('slider-track')){
+          const mx=parseFloat(track.dataset.max)||100;
+          const val=parseFloat(input.value)||0;
+          track.querySelector('.slider-thumb').style.left=(val/mx*100)+'%';
+          track.querySelector('.slider-fill').style.width=(val/mx*100)+'%';
+        }
+      }
+    });
+    // Restore collapsed states
+    if(data.__collapsed){
+      document.querySelectorAll('.card').forEach(c=>{
+        if(data.__collapsed.includes(c.id))c.classList.add('collapsed');
+        else c.classList.remove('collapsed');
+      });
+    }
+    // Restore district selection
+    if(data.__dist){
+      document.getElementById('distSelect').value=data.__dist;
+      filterDistrict(data.__dist);
+    }
+  }catch(e){}
+}
+function resetAll(){
+  document.querySelectorAll('.row-input').forEach(i=>{i.value='';i.classList.remove('over');});
+  document.querySelectorAll('.slider-track').forEach(t=>{
+    t.querySelector('.slider-thumb').style.left='0%';
+    t.querySelector('.slider-fill').style.width='0%';
+  });
+  try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+  calc();
+}
+
+renderStats();render();loadData();calc();
+</script>
+</body>
+</html>
